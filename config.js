@@ -5,6 +5,6 @@
 //
 // 예: "https://script.google.com/macros/s/AKfycb.../exec"
 window.ENVCLOCK_CONFIG = {
-  SCRIPT_URL: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE",
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzdtZGH9hZvmceeYAXST7K7k3wXf16eIgy93jPo12QvEWkotz3WkghPVYk4HdRorVSMqQ/exec",
   POLL_INTERVAL_MS: 5000
 };
