@@ -488,6 +488,12 @@
   }
   .ref-card:hover{border-color:var(--text-faint);}
   .ref-card img{width:100%; height:200px; object-fit:cover; display:block;}
+  .ref-fallback{
+    display:none; width:100%; height:200px; background:var(--surface-2);
+    align-items:center; justify-content:center; text-align:center;
+    color:var(--text-dim); font-size:14px; padding:0 16px; line-height:1.6;
+  }
+  .ref-fallback a{color:var(--accent-strong); font-weight:600;}
   .ref-card .ref-cap{padding:12px 14px 14px; font-size:14px; color:var(--text-dim);}
   .ref-card .ref-cap b{color:var(--text); display:block; font-size:15.5px; margin-bottom:2px;}
 
@@ -649,16 +655,19 @@
       <span class="ref-badge">환경재단 · 아사히글라스재단 공동발표 · 2026.09.08</span>
     </div>
     <div class="ref-grid">
-      <div class="ref-card" data-img="assets/world-clock-2026.jpg" data-cap="2026 세계환경위기시계 · 9:39 매우위험">
-        <img src="assets/world-clock-2026.jpg" alt="2026 세계환경위기시계 9시 39분">
+      <div class="ref-card" data-img="assets/world-clock-2026.jpg?v=3" data-cap="2026 세계환경위기시계 · 9:39 매우위험">
+        <img src="assets/world-clock-2026.jpg?v=3" alt="2026 세계환경위기시계 9시 39분" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="ref-fallback"><span>이미지를 불러오지 못했습니다<br><a href="assets/world-clock-2026.jpg?v=3" target="_blank" rel="noopener">새 탭에서 열기 →</a></span></div>
         <div class="ref-cap"><b>세계환경위기시계</b>9:39 · 매우위험</div>
       </div>
-      <div class="ref-card" data-img="assets/korea-clock-2026.jpg" data-cap="2026 한국환경위기시계 · 9:34 매우위험">
-        <img src="assets/korea-clock-2026.jpg" alt="2026 한국환경위기시계 9시 34분">
+      <div class="ref-card" data-img="assets/korea-clock-2026.jpg?v=3" data-cap="2026 한국환경위기시계 · 9:34 매우위험">
+        <img src="assets/korea-clock-2026.jpg?v=3" alt="2026 한국환경위기시계 9시 34분" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="ref-fallback"><span>이미지를 불러오지 못했습니다<br><a href="assets/korea-clock-2026.jpg?v=3" target="_blank" rel="noopener">새 탭에서 열기 →</a></span></div>
         <div class="ref-cap"><b>한국환경위기시계</b>9:34 · 매우위험</div>
       </div>
-      <div class="ref-card" data-img="assets/trend-2005-2026.jpg" data-cap="역대 환경위기시계 추이 (2005–2026)">
-        <img src="assets/trend-2005-2026.jpg" alt="역대 환경위기시계 추이 인포그래픽">
+      <div class="ref-card" data-img="assets/trend-2005-2026.jpg?v=3" data-cap="역대 환경위기시계 추이 (2005–2026)">
+        <img src="assets/trend-2005-2026.jpg?v=3" alt="역대 환경위기시계 추이 인포그래픽" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="ref-fallback"><span>이미지를 불러오지 못했습니다<br><a href="assets/trend-2005-2026.jpg?v=3" target="_blank" rel="noopener">새 탭에서 열기 →</a></span></div>
         <div class="ref-cap"><b>역대 추이</b>2005–2026년 세계·한국 비교</div>
       </div>
     </div>
