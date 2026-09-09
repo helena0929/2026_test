@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 환경위기시계 | AI 리더십 과정 2기</title>
+<meta name="description" content="환경재단·매일경제 AI 리더십 과정 2기 원우 실시간 환경위기시계 설문 및 대시보드">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e0c;
+    --surface:#121815;
+    --surface-2:#19211b;
+    --surface-3:#212b23;
+    --line:#26312a;
+    --line-soft:#1c2620;
+    --text:#eaf1ec;
+    --text-dim:#93a89b;
+    --text-faint:#5f7469;
+    --accent:#2fd673;
+    --accent-strong:#48f08c;
+    --accent-dim:#164c2e;
+    --accent-ink:#03170c;
+    --danger:#ff5a48;
+    --warn:#ffb238;
+    --safe:#37d0c0;
+    --verysafe:#5b9dff;
+    --gold:#e8c468;
+    --shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
+    --font-display: "Fraunces", ui-serif, Georgia, serif;
+    --font-body: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;}
+  ::selection{background:var(--accent-dim);color:var(--accent-strong);}
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:40;
+    background:rgba(10,14,12,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .topbar-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+    max-width:1120px; margin:0 auto;
+    gap:12px;
+  }
+  .brand{
+    display:flex; flex-direction:column; gap:1px;
+  }
+  .brand-line1{
+    font-size:11px; letter-spacing:0.12em; color:var(--text-faint); text-transform:uppercase;
+  }
+  .brand-line2{
+    font-family:var(--font-display); font-weight:600; font-size:16px; color:var(--text);
+  }
+  .live-pill{
+    display:flex; align-items:center; gap:8px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    padding:7px 14px 7px 10px;
+    border-radius:999px;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--text-dim);
+    white-space:nowrap;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 0 rgba(47,214,115,0.6);
+    animation:pulse 2s infinite;
+    flex:none;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(47,214,115,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(47,214,115,0);}
+    100%{box-shadow:0 0 0 0 rgba(47,214,115,0);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .dot{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+  .live-count{color:var(--accent-strong); font-weight:600;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:64px 0 56px;
+    border-bottom:1px solid var(--line-soft);
+    background:
+      radial-gradient(720px 420px at 82% -10%, rgba(47,214,115,0.14), transparent 60%),
+      radial-gradient(600px 380px at -10% 20%, rgba(255,90,72,0.08), transparent 60%);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+  }
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr; gap:36px;}
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--accent-strong);
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:""; width:16px; height:1px; background:var(--accent-strong);
+  }
+  h1.hero-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(30px, 4.4vw, 50px);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+    text-wrap:balance;
+  }
+  h1.hero-title em{
+    font-style:normal; color:var(--accent-strong);
+  }
+  .hero-sub{
+    font-size:16px;
+    color:var(--text-dim);
+    max-width:52ch;
+    margin:0 0 30px;
+  }
+  .hero-actions{
+    display:flex; gap:12px; flex-wrap:wrap;
+  }
+  .btn{
+    appearance:none; border:none; cursor:pointer;
+    font-family:var(--font-body); font-weight:600; font-size:14.5px;
+    padding:14px 24px;
+    border-radius:999px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--accent-strong); outline-offset:3px;}
+  .btn-primary{
+    background:var(--accent);
+    color:var(--accent-ink);
+    box-shadow:0 8px 24px -8px rgba(47,214,115,0.55);
+  }
+  .btn-primary:hover{transform:translateY(-1px); background:var(--accent-strong);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--text-dim); transform:translateY(-1px);}
+  .btn-block{width:100%; justify-content:center;}
+  .btn[disabled]{opacity:0.4; cursor:not-allowed; transform:none !important;}
+
+  .hero-dial-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:26px 22px 22px;
+    box-shadow:var(--shadow);
+    text-align:center;
+  }
+  .hero-dial-label{
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--text-faint); margin-bottom:10px;
+  }
+  .hero-dial-caption{
+    margin-top:14px; font-size:13px; color:var(--text-dim);
+  }
+  .hero-dial-caption b{color:var(--text);}
+
+  /* ---------- section shell ---------- */
+  section{padding:64px 0;}
+  .section-head{
+    margin-bottom:34px;
+    max-width:640px;
+  }
+  .section-eyebrow{
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--text-faint); font-weight:600; margin-bottom:10px;
+  }
+  h2.section-title{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(24px, 3vw, 32px);
+    margin:0 0 10px; text-wrap:balance;
+  }
+  .section-desc{color:var(--text-dim); font-size:15px; margin:0;}
+
+  /* ---------- survey card ---------- */
+  #survey{border-bottom:1px solid var(--line-soft); background:var(--surface);}
+  .survey-shell{
+    max-width:640px; margin:0 auto;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:30px 26px 26px;
+    box-shadow:var(--shadow);
+  }
+  .progress-row{
+    display:flex; align-items:center; gap:8px; margin-bottom:22px;
+  }
+  .progress-track{
+    flex:1; height:4px; background:var(--surface-3); border-radius:99px; overflow:hidden;
+  }
+  .progress-fill{
+    height:100%; background:var(--accent); border-radius:99px;
+    transition:width .35s ease;
+  }
+  .progress-step{
+    font-family:var(--font-mono); font-size:12px; color:var(--text-faint); white-space:nowrap;
+  }
+  .step-kicker{
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--accent-strong); font-weight:600; margin-bottom:8px;
+  }
+  .step-title{
+    font-family:var(--font-display); font-size:22px; font-weight:600; margin:0 0 8px;
+  }
+  .step-help{color:var(--text-dim); font-size:14px; margin:0 0 22px; line-height:1.6;}
+
+  .issue-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px;
+  }
+  @media (max-width:520px){ .issue-grid{grid-template-columns:1fr;} }
+  .issue-card{
+    text-align:left;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:14px 14px;
+    cursor:pointer;
+    position:relative;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+    color:var(--text);
+  }
+  .issue-card:hover{border-color:var(--text-faint); transform:translateY(-1px);}
+  .issue-card.selected{
+    border-color:var(--accent);
+    background:linear-gradient(180deg, rgba(47,214,115,0.10), rgba(47,214,115,0.03));
+  }
+  .issue-num{
+    position:absolute; top:10px; right:10px;
+    width:22px; height:22px; border-radius:50%;
+    background:var(--accent); color:var(--accent-ink);
+    font-family:var(--font-mono); font-size:12px; font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transform:scale(0.6);
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .issue-card.selected .issue-num{opacity:1; transform:scale(1);}
+  .issue-name{font-weight:600; font-size:14.5px; margin:0 0 4px; padding-right:26px;}
+  .issue-desc{font-size:12.5px; color:var(--text-dim); margin:0; line-height:1.5;}
+
+  .solution-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px;
+  }
+  @media (max-width:520px){ .solution-grid{grid-template-columns:1fr;} }
+  .solution-chip{
+    display:flex; align-items:center; gap:9px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    padding:11px 12px;
+    cursor:pointer;
+    font-size:13.5px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .solution-chip:hover{border-color:var(--text-faint);}
+  .solution-chip.selected{
+    border-color:var(--accent);
+    background:rgba(47,214,115,0.08);
+  }
+  .chip-box{
+    width:16px; height:16px; border-radius:5px; flex:none;
+    border:1.5px solid var(--text-faint);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .solution-chip.selected .chip-box{
+    background:var(--accent); border-color:var(--accent);
+  }
+  .chip-box svg{width:10px; height:10px; opacity:0;}
+  .solution-chip.selected .chip-box svg{opacity:1;}
+  .other-input{
+    width:100%; margin-top:4px; margin-bottom:18px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm);
+    color:var(--text); font-family:var(--font-body); font-size:13.5px;
+    padding:11px 12px; display:none;
+  }
+  .other-input.show{display:block;}
+
+  .hint-row{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:12.5px; color:var(--text-faint); margin-bottom:18px;
+  }
+  .hint-row b{color:var(--text-dim);}
+
+  .step-actions{display:flex; gap:10px; margin-top:6px;}
+  .step-actions .btn{flex:1;}
+
+  /* dial step */
+  .dial-issue-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--surface); border:1px solid var(--line);
+    padding:6px 12px 6px 8px; border-radius:999px;
+    font-size:13px; margin-bottom:20px;
+  }
+  .dial-issue-tag .rank-badge{
+    width:20px; height:20px; border-radius:50%;
+    background:var(--accent); color:var(--accent-ink);
+    font-family:var(--font-mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .dial-stage{
+    display:flex; flex-direction:column; align-items:center;
+    padding:6px 0 22px;
+  }
+  .dial-readout{
+    margin-top:16px; text-align:center;
+  }
+  .dial-time{
+    font-family:var(--font-mono); font-weight:600; font-size:34px; letter-spacing:0.01em;
+    font-variant-numeric:tabular-nums;
+  }
+  .dial-label{
+    display:inline-block; margin-top:6px;
+    font-size:12px; font-weight:700; letter-spacing:0.06em;
+    padding:4px 12px; border-radius:999px;
+    text-transform:uppercase;
+  }
+  .dial-hint{margin-top:14px; font-size:12.5px; color:var(--text-faint); text-align:center; max-width:34ch;}
+
+  /* review */
+  .review-list{list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .review-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm);
+    padding:11px 14px; font-size:13.5px;
+  }
+  .review-row .rr-left{display:flex; align-items:center; gap:10px; min-width:0;}
+  .review-row .rr-left span.name{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .review-row .rr-time{font-family:var(--font-mono); color:var(--text-dim); flex:none;}
+  .review-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px;}
+  .review-tag{
+    font-size:12px; background:var(--surface); border:1px solid var(--line);
+    padding:5px 10px; border-radius:999px; color:var(--text-dim);
+  }
+  .review-score-card{
+    background:linear-gradient(180deg, rgba(47,214,115,0.10), rgba(47,214,115,0.02));
+    border:1px solid var(--accent-dim);
+    border-radius:var(--radius-md);
+    padding:16px 18px; margin-bottom:20px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .review-score-card .rs-label{font-size:12.5px; color:var(--text-dim);}
+  .review-score-card .rs-value{font-family:var(--font-mono); font-size:24px; font-weight:600;}
+
+  /* done */
+  .done-stage{text-align:center; padding:8px 0 4px;}
+  .done-check{
+    width:52px; height:52px; border-radius:50%;
+    background:var(--accent-dim); color:var(--accent-strong);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 18px;
+  }
+  .already-note{
+    display:flex; align-items:center; gap:10px;
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm);
+    padding:12px 14px; font-size:13px; color:var(--text-dim); margin-bottom:18px;
+  }
+  .link-reset{color:var(--accent-strong); cursor:pointer; text-decoration:underline; background:none; border:none; font:inherit; padding:0;}
+
+  /* ---------- dashboard ---------- */
+  #dashboard{background:var(--bg);}
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:40px;
+  }
+  @media (max-width:760px){ .stat-row{grid-template-columns:1fr 1fr;} }
+  .stat-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
+    padding:16px 18px;
+  }
+  .stat-card .st-label{font-size:11.5px; color:var(--text-faint); letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;}
+  .stat-card .st-value{font-family:var(--font-mono); font-size:24px; font-weight:600;}
+  .stat-card .st-value small{font-size:13px; color:var(--text-dim); font-weight:400;}
+
+  .compare-row{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:22px;
+  }
+  @media (max-width:820px){ .compare-row{grid-template-columns:1fr;} }
+  .compare-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg);
+    padding:22px 20px 20px; text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .compare-card.is-us{
+    border-color:var(--accent-dim);
+    background:linear-gradient(180deg, rgba(47,214,115,0.09), rgba(47,214,115,0.01));
+  }
+  .compare-title{font-size:13px; font-weight:600; color:var(--text); margin-bottom:2px;}
+  .compare-sub{font-size:11.5px; color:var(--text-faint); margin-bottom:14px;}
+
+  .delta-note{
+    max-width:640px; margin:0 auto 40px; text-align:center;
+    font-size:14px; color:var(--text-dim); line-height:1.7;
+  }
+  .delta-note b{color:var(--accent-strong); font-weight:600;}
+  .delta-note b.down{color:var(--verysafe);}
+
+  .rank-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:44px;
+  }
+  @media (max-width:820px){ .rank-grid{grid-template-columns:1fr;} }
+  .rank-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg);
+    padding:22px 22px 18px;
+  }
+  .rank-card h3{
+    font-family:var(--font-display); font-size:17px; font-weight:600; margin:0 0 4px;
+  }
+  .rank-card .rc-sub{font-size:12.5px; color:var(--text-faint); margin:0 0 18px;}
+  .bar-row{margin-bottom:13px;}
+  .bar-row:last-child{margin-bottom:0;}
+  .bar-top{
+    display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-bottom:6px;
+  }
+  .bar-name{font-size:13px; color:var(--text); display:flex; align-items:center; gap:7px; min-width:0;}
+  .bar-name .rk{font-family:var(--font-mono); color:var(--text-faint); font-size:11.5px; flex:none;}
+  .bar-name span.txt{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .bar-meta{font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); flex:none; white-space:nowrap;}
+  .bar-track{height:8px; background:var(--surface-3); border-radius:99px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:99px; background:var(--accent); transition:width .5s ease;}
+  .empty-note{
+    color:var(--text-faint); font-size:13px; text-align:center; padding:24px 8px;
+  }
+
+  .other-notes{
+    margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft);
+  }
+  .other-notes .on-label{font-size:11.5px; color:var(--text-faint); margin-bottom:8px;}
+  .other-notes .on-list{display:flex; flex-wrap:wrap; gap:6px;}
+  .other-notes .on-chip{
+    font-size:12px; background:var(--surface-2); border:1px solid var(--line);
+    padding:5px 10px; border-radius:999px; color:var(--text-dim);
+  }
+
+  /* reference images */
+  .ref-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:18px;}
+  .ref-badge{
+    font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono);
+  }
+  .ref-grid{
+    display:grid; grid-template-columns:1fr 1fr 1.4fr; gap:14px;
+  }
+  @media (max-width:820px){ .ref-grid{grid-template-columns:1fr;} }
+  .ref-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg);
+    overflow:hidden; cursor:zoom-in;
+    transition:border-color .15s ease;
+  }
+  .ref-card:hover{border-color:var(--text-faint);}
+  .ref-card img{width:100%; height:200px; object-fit:cover; display:block;}
+  .ref-card .ref-cap{padding:12px 14px 14px; font-size:12.5px; color:var(--text-dim);}
+  .ref-card .ref-cap b{color:var(--text); display:block; font-size:13.5px; margin-bottom:2px;}
+
+  .lightbox{
+    position:fixed; inset:0; background:rgba(5,7,6,0.92);
+    display:none; align-items:center; justify-content:center; z-index:80; padding:30px;
+    backdrop-filter:blur(4px);
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:min(90vw,720px); max-height:85vh; border-radius:16px; box-shadow:var(--shadow);}
+  .lightbox-close{
+    position:absolute; top:22px; right:26px;
+    width:38px; height:38px; border-radius:50%;
+    background:var(--surface); border:1px solid var(--line); color:var(--text);
+    cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center;
+  }
+
+  footer{
+    border-top:1px solid var(--line-soft);
+    padding:36px 0 46px;
+    text-align:center;
+  }
+  footer .f-org{font-family:var(--font-display); font-size:15px; margin-bottom:6px;}
+  footer .f-sub{font-size:12px; color:var(--text-faint);}
+
+  .toast{
+    position:fixed; left:50%; bottom:26px; transform:translate(-50%,20px);
+    background:var(--surface-3); border:1px solid var(--line);
+    color:var(--text); padding:12px 18px; border-radius:999px;
+    font-size:13px; box-shadow:var(--shadow);
+    opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+    z-index:90; white-space:nowrap;
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-line1">환경재단 &times; 매일경제 · AI 리더십 과정 2기</span>
+      <span class="brand-line2">2026 환경위기시계 라이브</span>
+    </div>
+    <div class="live-pill">
+      <span class="dot"></span>
+      <span>실시간 응답 <span class="live-count" id="topbarCount">0</span>명</span>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">AI 리더십 과정 2기 · 원우 라이브 서베이</div>
+      <h1 class="hero-title">우리 원우들의 시계는<br><em>지금 몇 시</em>일까요</h1>
+      <p class="hero-sub">
+        환경재단과 아사히글라스재단이 어제 발표한 <b style="color:var(--text)">2026 환경위기시계</b>를 함께 짚어보고,
+        AI 리더십 과정 2기 원우 여러분이 체감하는 환경위기 시각을 직접 설문으로 만들어봅니다.
+        응답은 제출 즉시 아래 대시보드에 실시간으로 반영됩니다.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="ctaStart">설문 참여하기 →</button>
+        <button class="btn btn-ghost" id="ctaDashboard">실시간 대시보드 보기</button>
+      </div>
+    </div>
+    <div class="hero-dial-card">
+      <div class="hero-dial-label">원우 2기 실시간 평균</div>
+      <div id="heroDial"></div>
+      <div class="hero-dial-caption" id="heroDialCaption">아직 응답이 없습니다 — 첫 번째 시각을 만들어주세요</div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= SURVEY ================= -->
+<section id="survey">
+  <div class="wrap">
+    <div class="section-head" style="margin:0 auto 30px; text-align:center; max-width:640px;">
+      <div class="section-eyebrow">설문 참여</div>
+      <h2 class="section-title">나의 2026 환경위기시계 만들기</h2>
+      <p class="section-desc">약 1~2분이면 충분합니다. 환경재단 공식 방법론과 동일한 방식으로 계산됩니다.</p>
+    </div>
+
+    <div class="survey-shell" id="surveyShell">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= DASHBOARD ================= -->
+<section id="dashboard">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">실시간 대시보드</div>
+      <h2 class="section-title">AI 리더십 2기, 우리가 만든 위기시각</h2>
+      <p class="section-desc">약 5초마다 자동으로 갱신됩니다. 새로고침하지 않아도 됩니다.</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="st-label">참여 인원</div>
+        <div class="st-value" id="statCount">0<small> 명</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="st-label">원우 평균 위기시각</div>
+        <div class="st-value" id="statAvg">–:––</div>
+      </div>
+      <div class="stat-card">
+        <div class="st-label">세계 시계 대비</div>
+        <div class="st-value" id="statVsWorld">–</div>
+      </div>
+      <div class="stat-card">
+        <div class="st-label">최근 업데이트</div>
+        <div class="st-value" id="statUpdated" style="font-size:16px;">–</div>
+      </div>
+    </div>
+
+    <div class="compare-row">
+      <div class="compare-card is-us">
+        <div class="compare-title">AI 리더십 2기 원우</div>
+        <div class="compare-sub">실시간 평균</div>
+        <div id="dashDialUs"></div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-title">2026 세계환경위기시계</div>
+        <div class="compare-sub">환경재단 · 아사히글라스재단 발표</div>
+        <div id="dashDialWorld"></div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-title">2026 한국환경위기시계</div>
+        <div class="compare-sub">환경재단 · 아사히글라스재단 발표</div>
+        <div id="dashDialKorea"></div>
+      </div>
+    </div>
+
+    <p class="delta-note" id="deltaNote">
+      원우 여러분의 응답이 모이면 공식 발표치와의 차이를 이곳에서 바로 비교할 수 있습니다.
+    </p>
+
+    <div class="rank-grid">
+      <div class="rank-card">
+        <h3>가장 시급한 환경문제 TOP 9</h3>
+        <p class="rc-sub">순위 선택 비중과 위기 시각을 함께 반영한 점수</p>
+        <div id="issueBars"><div class="empty-note">아직 응답이 없습니다</div></div>
+      </div>
+      <div class="rank-card">
+        <h3>해결의 핵심 요인 TOP 11</h3>
+        <p class="rc-sub">원우들이 최대 3개까지 선택한 결과</p>
+        <div id="solutionBars"><div class="empty-note">아직 응답이 없습니다</div></div>
+        <div class="other-notes" id="otherNotesWrap" style="display:none;">
+          <div class="on-label">기타 의견</div>
+          <div class="on-list" id="otherNotesList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-head">
+      <h3 style="font-family:var(--font-display); font-size:17px; font-weight:600; margin:0;">공식 발표 자료 원문</h3>
+      <span class="ref-badge">환경재단 · 아사히글라스재단 공동발표 · 2026.09.08</span>
+    </div>
+    <div class="ref-grid">
+      <div class="ref-card" data-img="assets/world-clock-2026.jpg" data-cap="2026 세계환경위기시계 · 9:39 매우위험">
+        <img src="assets/world-clock-2026.jpg" alt="2026 세계환경위기시계 9시 39분" loading="lazy">
+        <div class="ref-cap"><b>세계환경위기시계</b>9:39 · 매우위험</div>
+      </div>
+      <div class="ref-card" data-img="assets/korea-clock-2026.jpg" data-cap="2026 한국환경위기시계 · 9:34 매우위험">
+        <img src="assets/korea-clock-2026.jpg" alt="2026 한국환경위기시계 9시 34분" loading="lazy">
+        <div class="ref-cap"><b>한국환경위기시계</b>9:34 · 매우위험</div>
+      </div>
+      <div class="ref-card" data-img="assets/trend-2005-2026.jpg" data-cap="역대 환경위기시계 추이 (2005–2026)">
+        <img src="assets/trend-2005-2026.jpg" alt="역대 환경위기시계 추이 인포그래픽" loading="lazy">
+        <div class="ref-cap"><b>역대 추이</b>2005–2026년 세계·한국 비교</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-org">환경재단 &times; 매일경제 공동기획 · AI 리더십 과정 2기</div>
+  <div class="f-sub">본 설문은 원우 커뮤니티 내부 참여용으로 제작되었습니다 · 2026 환경위기시계 원본 발표 자료 제공: 환경재단</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ================= data ================= */
+  var ISSUES = [
+    {id:'climate', name:'기후변화', desc:'지구온난화, 이상기후(가뭄·폭우·폭설·이상기온)'},
+    {id:'biosphere', name:'생물권 보존(생물다양성)', desc:'종의 멸종 가속화, 서식지·생태계 파괴'},
+    {id:'land', name:'토양체계 변화(토지이용)', desc:'삼림 감소, 경작지 규모 변화'},
+    {id:'pollution', name:'생화학물질의 순환(오염)', desc:'수질·대기 오염, 미세플라스틱, 부영양화'},
+    {id:'water', name:'수자원', desc:'가용 담수 자원 감소, 수질 악화'},
+    {id:'population', name:'인구', desc:'지속가능 수준을 넘어선 인구 증가, 고령화'},
+    {id:'food', name:'식량', desc:'육지·해양 식량 공급 감소'},
+    {id:'lifestyle', name:'생활방식(소비습관)', desc:'과잉 자원 소비형 라이프스타일'},
+    {id:'policy', name:'사회·경제·환경 정책·조치', desc:'녹색경제, 환경교육, 법제도, 거버넌스'}
+  ];
+  var SOLUTIONS = [
+    {id:'gov', name:'정부의 환경 정책 및 리더십'},
+    {id:'intl', name:'국제협력 및 글로벌 거버넌스'},
+    {id:'econ', name:'경제 체제 개혁 및 시장 메커니즘'},
+    {id:'tech', name:'기술 혁신'},
+    {id:'energy', name:'재생에너지 및 인프라 전환'},
+    {id:'esg', name:'기업의 환경적 책임 및 ESG 경영'},
+    {id:'local', name:'지방 정부 및 지자체의 역할'},
+    {id:'behavior', name:'개인의 행동 변화 및 생활 방식 전환'},
+    {id:'edu', name:'교육 및 대중 인식 제고'},
+    {id:'media', name:'미디어 및 정보의 질과 신뢰성'},
+    {id:'other', name:'기타'}
+  ];
+  var RANK_WEIGHTS = [0.5, 0.3, 0.2];
+  var WORLD_MIN = 9*60+39;   // 2026 세계환경위기시계 9:39
+  var KOREA_MIN = 9*60+34;   // 2026 한국환경위기시계 9:34
+  var CONFIG = window.ENVCLOCK_CONFIG || {SCRIPT_URL:'', POLL_INTERVAL_MS:5000};
+  var STORAGE_KEY = 'envclock2026_ai2_submission';
+
+  /* ================= helpers ================= */
+  function byId(id){return document.getElementById(id);}
+  function fmtTime(min){
+    var h = Math.floor(min/60), m = min%60;
+    return h + ':' + (m<10?'0'+m:m);
+  }
+  function quadrant(min){
+    if (min > 540) return {label:'매우위험', color:'var(--danger)', key:'danger'};
+    if (min > 360) return {label:'위험한', color:'var(--warn)', key:'warn'};
+    if (min > 180) return {label:'안전한', color:'var(--safe)', key:'safe'};
+    return {label:'매우안전', color:'var(--verysafe)', key:'verysafe'};
+  }
+  function issueName(id){
+    var f = ISSUES.filter(function(i){return i.id===id;})[0];
+    return f ? f.name : id;
+  }
+  function showToast(msg){
+    var t = byId('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast._h);
+    showToast._h = setTimeout(function(){t.classList.remove('show');}, 2600);
+  }
+
+  /* ================= SVG dial ================= */
+  // Renders a clock dial. If onChange is provided, dial is interactive (drag/tap).
+  function renderDial(container, opts){
+    opts = opts || {};
+    var size = opts.size || 200;
+    var value = opts.value; // minutes 10..720, or undefined/null for "no data"
+    var interactive = !!opts.onChange;
+    var cx = size/2, cy = size/2, r = size*0.42;
+
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns,'svg');
+    svg.setAttribute('viewBox','0 0 '+size+' '+size);
+    svg.setAttribute('width', size);
+    svg.setAttribute('height', size);
+    svg.style.touchAction = 'none';
+    svg.style.cursor = interactive ? 'pointer' : 'default';
+    svg.style.display = 'block';
+    svg.style.margin = '0 auto';
+
+    function polar(angleDeg, radius){
+      var rad = (angleDeg-90) * Math.PI/180;
+      return [cx + radius*Math.cos(rad), cy + radius*Math.sin(rad)];
+    }
+    function arcPath(a0,a1,radius){
+      var p0 = polar(a0,radius), p1 = polar(a1,radius);
+      var large = (a1-a0) % 360 > 180 ? 1 : 0;
+      return 'M'+cx+','+cy+' L'+p0[0]+','+p0[1]+' A'+radius+','+radius+' 0 '+large+' 1 '+p1[0]+','+p1[1]+' Z';
+    }
+
+    // quadrant wedges: 매우위험(270-360), 매우안전(0-90), 안전(90-180), 위험(180-270)
+    var wedges = [
+      {a0:270,a1:360,color:'var(--danger)',op:0.16},
+      {a0:0,a1:90,color:'var(--verysafe)',op:0.14},
+      {a0:90,a1:180,color:'var(--safe)',op:0.14},
+      {a0:180,a1:270,color:'var(--warn)',op:0.14}
+    ];
+    wedges.forEach(function(w){
+      var p = document.createElementNS(ns,'path');
+      p.setAttribute('d', arcPath(w.a0,w.a1,r));
+      p.setAttribute('fill', w.color);
+      p.setAttribute('opacity', w.op);
+      svg.appendChild(p);
+    });
+
+    // outer ring
+    var ring = document.createElementNS(ns,'circle');
+    ring.setAttribute('cx',cx); ring.setAttribute('cy',cy); ring.setAttribute('r',r);
+    ring.setAttribute('fill','none');
+    ring.setAttribute('stroke','var(--line)');
+    ring.setAttribute('stroke-width','1.5');
+    svg.appendChild(ring);
+
+    // hour ticks
+    for(var h=0; h<12; h++){
+      var ang = h*30;
+      var major = h%3===0;
+      var p1 = polar(ang, r*(major?0.86:0.90));
+      var p2 = polar(ang, r*0.98);
+      var line = document.createElementNS(ns,'line');
+      line.setAttribute('x1',p1[0]); line.setAttribute('y1',p1[1]);
+      line.setAttribute('x2',p2[0]); line.setAttribute('y2',p2[1]);
+      line.setAttribute('stroke', major ? 'var(--text-dim)' : 'var(--line)');
+      line.setAttribute('stroke-width', major?1.6:1);
+      svg.appendChild(line);
+    }
+
+    // center hub
+    function angleForValue(v){ return (v/720)*360; }
+
+    var hand = document.createElementNS(ns,'line');
+    hand.setAttribute('x1',cx); hand.setAttribute('y1',cy);
+    hand.setAttribute('stroke-width', Math.max(3, size*0.02));
+    hand.setAttribute('stroke-linecap','round');
+    svg.appendChild(hand);
+
+    var hub = document.createElementNS(ns,'circle');
+    hub.setAttribute('cx',cx); hub.setAttribute('cy',cy); hub.setAttribute('r', size*0.035);
+    svg.appendChild(hub);
+
+    function paint(v){
+      var q = quadrant(v || 10);
+      var color = v ? q.color : 'var(--text-faint)';
+      var ang = angleForValue(v || 10);
+      var tip = polar(ang, r*0.78);
+      hand.setAttribute('x2', tip[0]);
+      hand.setAttribute('y2', tip[1]);
+      hand.setAttribute('stroke', v ? color : 'var(--line)');
+      hub.setAttribute('fill', v ? color : 'var(--line)');
+    }
+    paint(value);
+
+    if (interactive){
+      var dragging = false;
+      function pointToMinutes(clientX, clientY){
+        var rect = svg.getBoundingClientRect();
+        var scale = size / rect.width;
+        var x = (clientX - rect.left) * scale - cx;
+        var y = (clientY - rect.top) * scale - cy;
+        var deg = Math.atan2(x, -y) * 180/Math.PI;
+        if (deg < 0) deg += 360;
+        var min = Math.round((deg/360)*720/10)*10;
+        if (min <= 0) min = 720;
+        if (min < 10) min = 10;
+        if (min > 720) min = 720;
+        return min;
+      }
+      function handleMove(e){
+        if(!dragging) return;
+        var pt = e.touches ? e.touches[0] : e;
+        var v = pointToMinutes(pt.clientX, pt.clientY);
+        paint(v);
+        opts.onChange(v, false);
+      }
+      function handleUp(e){
+        if(!dragging) return;
+        dragging = false;
+        var pt = (e.changedTouches && e.changedTouches[0]) || e;
+        var v = pointToMinutes(pt.clientX, pt.clientY);
+        paint(v);
+        opts.onChange(v, true);
+        window.removeEventListener('pointermove', handleMove);
+        window.removeEventListener('pointerup', handleUp);
+      }
+      svg.addEventListener('pointerdown', function(e){
+        dragging = true;
+        var v = pointToMinutes(e.clientX, e.clientY);
+        paint(v);
+        opts.onChange(v, false);
+        window.addEventListener('pointermove', handleMove);
+        window.addEventListener('pointerup', handleUp);
+        e.preventDefault();
+      });
+    }
+
+    container.innerHTML = '';
+    container.appendChild(svg);
+    return {update: paint};
+  }
+
+  /* ================= state ================= */
+  var state = {
+    step: 'pick',          // pick -> time0 -> time1 -> time2 -> solutions -> review -> done
+    picked: [],            // [issueId, issueId, issueId] in rank order
+    times: {},             // issueId -> minutes
+    solutions: [],         // ids
+    otherText: ''
+  };
+
+  var dashboardRows = [];
+  var dashCache = null;
+
+  /* ================= survey rendering ================= */
+  var shell = byId('surveyShell');
+
+  function progressHtml(stepIndex, stepCount, labelText){
+    var pct = Math.round((stepIndex/stepCount)*100);
+    return '<div class="progress-row">'+
+      '<div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div>'+
+      '<div class="progress-step">'+labelText+'</div>'+
+      '</div>';
+  }
+
+  function renderStep(){
+    if (state.step === 'pick') return renderPickStep();
+    if (state.step === 'time0' || state.step === 'time1' || state.step === 'time2'){
+      var idx = parseInt(state.step.slice(-1),10);
+      return renderTimeStep(idx);
+    }
+    if (state.step === 'solutions') return renderSolutionsStep();
+    if (state.step === 'review') return renderReviewStep();
+    if (state.step === 'done') return renderDoneStep();
+  }
+
+  function renderPickStep(){
+    shell.innerHTML =
+      progressHtml(1,5,'STEP 1 / 5') +
+      '<div class="step-kicker">환경위기시계</div>'+
+      '<h3 class="step-title">가장 시급한 환경문제 3가지</h3>'+
+      '<p class="step-help">거주 국가·지역을 기준으로 가장 시급하다고 생각하는 문제를 <b>3개</b> 선택하세요. 선택한 순서가 곧 중요도 순위(1·2·3순위)가 됩니다.</p>'+
+      '<div class="issue-grid" id="issueGrid"></div>'+
+      '<div class="hint-row"><span>선택됨: <b id="pickCount">0</b> / 3</span><span>탭한 순서 = 순위</span></div>'+
+      '<div class="step-actions"><button class="btn btn-primary btn-block" id="pickNext" disabled>다음 →</button></div>';
+
+    var grid = byId('issueGrid');
+    ISSUES.forEach(function(issue){
+      var card = document.createElement('button');
+      card.type='button';
+      card.className='issue-card';
+      card.innerHTML = '<span class="issue-num"></span>'+
+        '<p class="issue-name">'+issue.name+'</p>'+
+        '<p class="issue-desc">'+issue.desc+'</p>';
+      card.addEventListener('click', function(){
+        var idx = state.picked.indexOf(issue.id);
+        if (idx > -1){
+          state.picked.splice(idx,1);
+        } else {
+          if (state.picked.length >= 3) return;
+          state.picked.push(issue.id);
+        }
+        syncPickUI();
+      });
+      card.dataset.issue = issue.id;
+      grid.appendChild(card);
+    });
+
+    function syncPickUI(){
+      Array.prototype.forEach.call(grid.children, function(card){
+        var id = card.dataset.issue;
+        var idx = state.picked.indexOf(id);
+        if (idx > -1){
+          card.classList.add('selected');
+          card.querySelector('.issue-num').textContent = idx+1;
+        } else {
+          card.classList.remove('selected');
+        }
+      });
+      byId('pickCount').textContent = state.picked.length;
+      byId('pickNext').disabled = state.picked.length !== 3;
+    }
+    syncPickUI();
+
+    byId('pickNext').addEventListener('click', function(){
+      state.step = 'time0';
+      renderStep();
+    });
+  }
+
+  function renderTimeStep(idx){
+    var issueId = state.picked[idx];
+    var name = issueName(issueId);
+    var current = state.times[issueId] || 360;
+
+    shell.innerHTML =
+      progressHtml(2+idx,5,'STEP '+(2+idx)+' / 5')+
+      '<div class="step-kicker">위기 시각 설정</div>'+
+      '<div class="dial-issue-tag"><span class="rank-badge">'+(idx+1)+'</span>'+name+'</div>'+
+      '<h3 class="step-title" style="margin-bottom:6px;">시계 바늘을 돌려 위험도를 표시하세요</h3>'+
+      '<p class="step-help">12시에 가까울수록 <b style="color:var(--danger)">매우위험</b>, 3시 방향에 가까울수록 <b style="color:var(--verysafe)">매우안전</b>입니다. (0:10 ~ 12:00, 10분 단위)</p>'+
+      '<div class="dial-stage">'+
+        '<div id="dialHost"></div>'+
+        '<div class="dial-readout">'+
+          '<div class="dial-time" id="dialTimeVal">'+fmtTime(current)+'</div>'+
+          '<span class="dial-label" id="dialLabelVal"></span>'+
+        '</div>'+
+        '<p class="dial-hint">원 위를 드래그하거나 탭해서 시각을 맞춰보세요</p>'+
+      '</div>'+
+      '<div class="step-actions">'+
+        '<button class="btn btn-ghost" id="dialPrev">← 이전</button>'+
+        '<button class="btn btn-primary" id="dialNext">다음 →</button>'+
+      '</div>';
+
+    function paintReadout(v){
+      byId('dialTimeVal').textContent = fmtTime(v);
+      var q = quadrant(v);
+      var lab = byId('dialLabelVal');
+      lab.textContent = q.label;
+      lab.style.color = q.color;
+      lab.style.background = 'color-mix(in srgb, '+q.color+' 18%, transparent)';
+    }
+
+    renderDial(byId('dialHost'), {
+      size:220,
+      value: current,
+      onChange: function(v){
+        state.times[issueId] = v;
+        paintReadout(v);
+      }
+    });
+    paintReadout(current);
+    state.times[issueId] = current;
+
+    byId('dialPrev').addEventListener('click', function(){
+      state.step = idx===0 ? 'pick' : 'time'+(idx-1);
+      renderStep();
+    });
+    byId('dialNext').addEventListener('click', function(){
+      state.step = idx===2 ? 'solutions' : 'time'+(idx+1);
+      renderStep();
+    });
+  }
+
+  function renderSolutionsStep(){
+    shell.innerHTML =
+      progressHtml(5,5,'STEP 5 / 5')+
+      '<div class="step-kicker">해결 요인</div>'+
+      '<h3 class="step-title">가장 중요한 해결 요인 (최대 3개)</h3>'+
+      '<p class="step-help">글로벌 환경 문제 해결을 위해 가장 중요하다고 생각하는 요인을 최대 3가지 선택하세요.</p>'+
+      '<div class="solution-grid" id="solutionGrid"></div>'+
+      '<input type="text" class="other-input" id="otherInput" placeholder="기타 의견을 자유롭게 입력해주세요">'+
+      '<div class="hint-row"><span>선택됨: <b id="solCount">0</b> / 3</span></div>'+
+      '<div class="step-actions">'+
+        '<button class="btn btn-ghost" id="solPrev">← 이전</button>'+
+        '<button class="btn btn-primary" id="solNext" disabled>결과 확인 →</button>'+
+      '</div>';
+
+    var grid = byId('solutionGrid');
+    var otherInput = byId('otherInput');
+    otherInput.value = state.otherText;
+
+    SOLUTIONS.forEach(function(sol){
+      var chip = document.createElement('button');
+      chip.type='button';
+      chip.className='solution-chip';
+      chip.innerHTML = '<span class="chip-box"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#03170c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'+
+        '<span>'+sol.name+'</span>';
+      chip.dataset.sol = sol.id;
+      chip.addEventListener('click', function(){
+        var idx = state.solutions.indexOf(sol.id);
+        if (idx>-1){
+          state.solutions.splice(idx,1);
+        } else {
+          if (state.solutions.length>=3) return;
+          state.solutions.push(sol.id);
+        }
+        sync();
+      });
+      grid.appendChild(chip);
+    });
+
+    function sync(){
+      Array.prototype.forEach.call(grid.children, function(chip){
+        var sel = state.solutions.indexOf(chip.dataset.sol) > -1;
+        chip.classList.toggle('selected', sel);
+      });
+      byId('solCount').textContent = state.solutions.length;
+      byId('solNext').disabled = state.solutions.length === 0;
+      otherInput.classList.toggle('show', state.solutions.indexOf('other') > -1);
+    }
+    sync();
+
+    otherInput.addEventListener('input', function(){ state.otherText = otherInput.value; });
+
+    byId('solPrev').addEventListener('click', function(){ state.step='time2'; renderStep(); });
+    byId('solNext').addEventListener('click', function(){ state.step='review'; renderStep(); });
+  }
+
+  function computeScore(){
+    var sum = 0;
+    state.picked.forEach(function(id, i){
+      sum += (state.times[id]||0) * RANK_WEIGHTS[i];
+    });
+    return Math.round(sum);
+  }
+
+  function renderReviewStep(){
+    var score = computeScore();
+    var q = quadrant(score);
+
+    var rowsHtml = state.picked.map(function(id,i){
+      var t = state.times[id];
+      return '<li class="review-row"><div class="rr-left"><span class="rank-badge" style="width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none;">'+(i+1)+'</span><span class="name">'+issueName(id)+'</span></div><span class="rr-time">'+fmtTime(t)+'</span></li>';
+    }).join('');
+
+    var tagsHtml = state.solutions.map(function(id){
+      var s = SOLUTIONS.filter(function(x){return x.id===id;})[0];
+      return '<span class="review-tag">'+(s?s.name:id)+'</span>';
+    }).join('');
+
+    shell.innerHTML =
+      progressHtml(5,5,'확인 후 제출')+
+      '<div class="step-kicker">최종 확인</div>'+
+      '<h3 class="step-title">제출 전 확인해주세요</h3>'+
+      '<div class="review-score-card"><span class="rs-label">나의 2026 환경위기시각</span><span class="rs-value" style="color:'+q.color+'">'+fmtTime(score)+' · '+q.label+'</span></div>'+
+      '<ul class="review-list">'+rowsHtml+'</ul>'+
+      '<div class="review-tags">'+tagsHtml+'</div>'+
+      '<div class="step-actions">'+
+        '<button class="btn btn-ghost" id="revPrev">← 수정하기</button>'+
+        '<button class="btn btn-primary" id="revSubmit">제출하기</button>'+
+      '</div>';
+
+    byId('revPrev').addEventListener('click', function(){ state.step='solutions'; renderStep(); });
+    byId('revSubmit').addEventListener('click', submitResponse);
+  }
+
+  function submitResponse(){
+    var btn = byId('revSubmit');
+    btn.disabled = true;
+    btn.textContent = '제출 중…';
+
+    var score = computeScore();
+    var payload = {
+      picks: state.picked.map(function(id){ return {issueId:id, time: state.times[id]}; }),
+      score: score,
+      solutions: state.solutions,
+      other: state.otherText || ''
+    };
+
+    var finish = function(ok){
+      if (ok){
+        try{
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({score:score, ts:Date.now()}));
+        }catch(e){}
+        state.step = 'done';
+        renderStep();
+        fetchDashboard();
+      } else {
+        btn.disabled = false;
+        btn.textContent = '다시 제출하기';
+        showToast('제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      }
+    };
+
+    if (!CONFIG.SCRIPT_URL || CONFIG.SCRIPT_URL.indexOf('PASTE') === 0){
+      showToast('관리자: config.js에 Apps Script URL을 등록해주세요');
+      finish(false);
+      return;
+    }
+
+    fetch(CONFIG.SCRIPT_URL, {method:'POST', body: JSON.stringify(payload)})
+      .then(function(r){ return r.json(); })
+      .then(function(res){ finish(!!res.ok); })
+      .catch(function(){ finish(false); });
+  }
+
+  function renderDoneStep(){
+    var score = computeScore();
+    var q = quadrant(score);
+    shell.innerHTML =
+      '<div class="done-stage">'+
+        '<div class="done-check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+
+        '<h3 class="step-title">제출 완료! 감사합니다</h3>'+
+        '<div class="review-score-card" style="text-align:left;"><span class="rs-label">나의 2026 환경위기시각</span><span class="rs-value" style="color:'+q.color+'">'+fmtTime(score)+' · '+q.label+'</span></div>'+
+        '<p class="step-help" style="text-align:center; margin-bottom:22px;">원우 전체의 실시간 평균과 공식 발표 시계를 대시보드에서 비교해보세요.</p>'+
+        '<div class="step-actions"><button class="btn btn-primary btn-block" id="goDash">실시간 대시보드 보기 ↓</button></div>'+
+        '<div style="margin-top:14px;"><button class="link-reset" id="resetSurvey">다른 응답으로 다시 참여하기</button></div>'+
+      '</div>';
+    byId('goDash').addEventListener('click', function(){
+      byId('dashboard').scrollIntoView({behavior:'smooth'});
+    });
+    byId('resetSurvey').addEventListener('click', function(){
+      try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+      state = {step:'pick', picked:[], times:{}, solutions:[], otherText:''};
+      renderStep();
+    });
+  }
+
+  function checkAlreadySubmitted(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      var q = quadrant(data.score);
+      shell.innerHTML =
+        '<div class="already-note">이미 이 기기에서 설문에 참여하셨습니다 (내 위기시각: <b style="color:'+q.color+'">'+fmtTime(data.score)+'</b>)</div>'+
+        '<div class="step-actions"><button class="btn btn-primary btn-block" id="goDash2">실시간 대시보드 보기 ↓</button></div>'+
+        '<div style="margin-top:14px; text-align:center;"><button class="link-reset" id="resetSurvey2">다른 응답으로 다시 참여하기</button></div>';
+      byId('goDash2').addEventListener('click', function(){ byId('dashboard').scrollIntoView({behavior:'smooth'}); });
+      byId('resetSurvey2').addEventListener('click', function(){
+        try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+        renderStep();
+      });
+      return true;
+    }catch(e){ return false; }
+  }
+
+  /* ================= dashboard ================= */
+  function aggregate(rows){
+    var count = rows.length;
+    var avg = null;
+    if (count){
+      var sum = 0;
+      rows.forEach(function(r){ sum += r.score; });
+      avg = Math.round(sum/count);
+    }
+
+    var issueScore = {}, issueCount = {}, issueTimeSum = {};
+    ISSUES.forEach(function(i){ issueScore[i.id]=0; issueCount[i.id]=0; issueTimeSum[i.id]=0; });
+    var solutionCount = {};
+    SOLUTIONS.forEach(function(s){ solutionCount[s.id]=0; });
+    var otherTexts = [];
+
+    rows.forEach(function(r){
+      (r.picks||[]).forEach(function(p, i){
+        if (issueScore[p.issueId]===undefined) return;
+        issueScore[p.issueId] += RANK_WEIGHTS[i]||0;
+        issueCount[p.issueId] += 1;
+        issueTimeSum[p.issueId] += p.time||0;
+      });
+      (r.solutions||[]).forEach(function(id){
+        if (solutionCount[id]===undefined) return;
+        solutionCount[id] += 1;
+      });
+      if (r.other && r.other.trim()) otherTexts.push(r.other.trim());
+    });
+
+    var issueRanked = ISSUES.map(function(i){
+      return {
+        id:i.id, name:i.name,
+        score:issueScore[i.id],
+        count:issueCount[i.id],
+        avgTime: issueCount[i.id] ? Math.round(issueTimeSum[i.id]/issueCount[i.id]) : null
+      };
+    }).sort(function(a,b){ return b.score-a.score; });
+
+    var solutionRanked = SOLUTIONS.map(function(s){
+      return {id:s.id, name:s.name, count:solutionCount[s.id]};
+    }).sort(function(a,b){ return b.count-a.count; });
+
+    return {count:count, avg:avg, issueRanked:issueRanked, solutionRanked:solutionRanked, otherTexts:otherTexts};
+  }
+
+  var heroDialCtrl, dashUsCtrl, dashWorldCtrl, dashKoreaCtrl;
+
+  function initDials(){
+    heroDialCtrl = renderDial(byId('heroDial'), {size:180, value:null});
+    dashUsCtrl = renderDial(byId('dashDialUs'), {size:170, value:null});
+    dashWorldCtrl = renderDial(byId('dashDialWorld'), {size:170, value:WORLD_MIN});
+    dashKoreaCtrl = renderDial(byId('dashDialKorea'), {size:170, value:KOREA_MIN});
+  }
+
+  function renderBars(container, items, opts){
+    if (!items.length || items.every(function(i){return (opts.metric(i))===0;})){
+      container.innerHTML = '<div class="empty-note">아직 응답이 없습니다</div>';
+      return;
+    }
+    var max = Math.max.apply(null, items.map(opts.metric).concat([0.0001]));
+    var html = items.slice(0, opts.limit||99).map(function(item, i){
+      var val = opts.metric(item);
+      var pct = Math.max(2, Math.round((val/max)*100));
+      return '<div class="bar-row">'+
+        '<div class="bar-top">'+
+          '<span class="bar-name"><span class="rk">'+(i+1)+'</span><span class="txt">'+item.name+'</span></span>'+
+          '<span class="bar-meta">'+opts.meta(item)+'</span>'+
+        '</div>'+
+        '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;"></div></div>'+
+      '</div>';
+    }).join('');
+    container.innerHTML = html;
+  }
+
+  function renderDashboard(agg){
+    byId('topbarCount').textContent = agg.count;
+    byId('statCount').innerHTML = agg.count + '<small> 명</small>';
+    byId('statUpdated').textContent = new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+
+    if (agg.count){
+      var q = quadrant(agg.avg);
+      byId('statAvg').innerHTML = fmtTime(agg.avg);
+      byId('statAvg').style.color = q.color;
+      var diff = agg.avg - WORLD_MIN;
+      byId('statVsWorld').innerHTML = (diff===0?'동일':(diff>0?'+':'')+diff+'분');
+      byId('statVsWorld').style.color = diff>0 ? 'var(--danger)' : (diff<0 ? 'var(--verysafe)' : 'var(--text)');
+
+      heroDialCtrl.update(agg.avg);
+      byId('heroDialCaption').innerHTML = '<b style="color:'+q.color+'">'+fmtTime(agg.avg)+'</b> · '+q.label+' · 응답 '+agg.count+'명';
+
+      dashUsCtrl.update(agg.avg);
+
+      var wDiff = agg.avg - WORLD_MIN, kDiff = agg.avg - KOREA_MIN;
+      function deltaSpan(d){
+        if (d===0) return '<b>동일한 시각</b>';
+        var cls = d>0 ? '' : 'down';
+        var word = d>0 ? '더 위험하게' : '더 안전하게';
+        return '<b class="'+cls+'">'+Math.abs(d)+'분 '+word+'</b>';
+      }
+      byId('deltaNote').innerHTML =
+        'AI 리더십 2기 원우들은 세계환경위기시계보다 '+deltaSpan(wDiff)+', 한국환경위기시계보다 '+deltaSpan(kDiff)+' 현재 상황을 바라보고 있습니다.';
+    } else {
+      byId('statAvg').textContent = '–:––';
+      byId('statVsWorld').textContent = '–';
+      byId('heroDialCaption').textContent = '아직 응답이 없습니다 — 첫 번째 시각을 만들어주세요';
+    }
+
+    renderBars(byId('issueBars'), agg.issueRanked, {
+      limit: 9,
+      metric: function(i){ return i.score; },
+      meta: function(i){ return i.count ? i.count+'표 · 평균 '+fmtTime(i.avgTime) : '0표'; }
+    });
+    renderBars(byId('solutionBars'), agg.solutionRanked, {
+      limit: 11,
+      metric: function(i){ return i.count; },
+      meta: function(i){ return agg.count ? Math.round((i.count/agg.count)*100)+'%' : '0%'; }
+    });
+
+    var otherWrap = byId('otherNotesWrap');
+    if (agg.otherTexts.length){
+      otherWrap.style.display = 'block';
+      byId('otherNotesList').innerHTML = agg.otherTexts.slice(0,20).map(function(t){
+        return '<span class="on-chip">"'+t.replace(/</g,'&lt;')+'"</span>';
+      }).join('');
+    } else {
+      otherWrap.style.display = 'none';
+    }
+  }
+
+  function fetchDashboard(){
+    if (!CONFIG.SCRIPT_URL || CONFIG.SCRIPT_URL.indexOf('PASTE') === 0){
+      renderDashboard(aggregate([]));
+      return;
+    }
+    fetch(CONFIG.SCRIPT_URL, {method:'GET'})
+      .then(function(r){ return r.json(); })
+      .then(function(rows){
+        dashboardRows = Array.isArray(rows) ? rows : [];
+        renderDashboard(aggregate(dashboardRows));
+      })
+      .catch(function(){
+        // keep showing last known state; retry on next interval
+      });
+  }
+
+  /* ================= lightbox ================= */
+  function initLightbox(){
+    var lb = byId('lightbox'), img = byId('lightboxImg');
+    document.querySelectorAll('.ref-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        img.src = card.dataset.img;
+        img.alt = card.dataset.cap || '';
+        lb.classList.add('open');
+      });
+    });
+    byId('lightboxClose').addEventListener('click', function(){ lb.classList.remove('open'); });
+    lb.addEventListener('click', function(e){ if (e.target===lb) lb.classList.remove('open'); });
+  }
+
+  /* ================= init ================= */
+  byId('ctaStart').addEventListener('click', function(){
+    byId('survey').scrollIntoView({behavior:'smooth'});
+  });
+  byId('ctaDashboard').addEventListener('click', function(){
+    byId('dashboard').scrollIntoView({behavior:'smooth'});
+  });
+
+  initDials();
+  initLightbox();
+  if (!checkAlreadySubmitted()){
+    renderStep();
+  }
+  fetchDashboard();
+  setInterval(fetchDashboard, CONFIG.POLL_INTERVAL_MS || 5000);
+})();
+</script>
+</body>
+</html>
