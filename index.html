@@ -803,14 +803,21 @@
       svg.appendChild(line);
     }
 
-    // center hub
-    function angleForValue(v){ return (v/720)*360; }
+    // center hub — hour hand (short/thick) + minute hand (long/thin), like the official dial
+    function hourAngleForValue(v){ return (v/720)*360; }
+    function minuteAngleForValue(v){ return ((v%60)/60)*360; }
 
-    var hand = document.createElementNS(ns,'line');
-    hand.setAttribute('x1',cx); hand.setAttribute('y1',cy);
-    hand.setAttribute('stroke-width', Math.max(3, size*0.02));
-    hand.setAttribute('stroke-linecap','round');
-    svg.appendChild(hand);
+    var minuteHand = document.createElementNS(ns,'line');
+    minuteHand.setAttribute('x1',cx); minuteHand.setAttribute('y1',cy);
+    minuteHand.setAttribute('stroke-width', Math.max(2, size*0.012));
+    minuteHand.setAttribute('stroke-linecap','round');
+    svg.appendChild(minuteHand);
+
+    var hourHand = document.createElementNS(ns,'line');
+    hourHand.setAttribute('x1',cx); hourHand.setAttribute('y1',cy);
+    hourHand.setAttribute('stroke-width', Math.max(3.5, size*0.024));
+    hourHand.setAttribute('stroke-linecap','round');
+    svg.appendChild(hourHand);
 
     var hub = document.createElementNS(ns,'circle');
     hub.setAttribute('cx',cx); hub.setAttribute('cy',cy); hub.setAttribute('r', size*0.035);
@@ -819,11 +826,14 @@
     function paint(v){
       var q = quadrant(v || 10);
       var color = v ? q.color : 'var(--text-faint)';
-      var ang = angleForValue(v || 10);
-      var tip = polar(ang, r*0.78);
-      hand.setAttribute('x2', tip[0]);
-      hand.setAttribute('y2', tip[1]);
-      hand.setAttribute('stroke', v ? color : 'var(--text-faint)');
+      var hTip = polar(hourAngleForValue(v || 10), r*0.5);
+      var mTip = polar(minuteAngleForValue(v || 10), r*0.78);
+      hourHand.setAttribute('x2', hTip[0]);
+      hourHand.setAttribute('y2', hTip[1]);
+      minuteHand.setAttribute('x2', mTip[0]);
+      minuteHand.setAttribute('y2', mTip[1]);
+      hourHand.setAttribute('stroke', v ? color : 'var(--text-faint)');
+      minuteHand.setAttribute('stroke', v ? color : 'var(--text-faint)');
       hub.setAttribute('fill', v ? color : 'var(--text-faint)');
     }
     paint(value);
